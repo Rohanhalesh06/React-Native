@@ -1,7 +1,11 @@
 #!/bin/bash
 
-# Define the branch to sync
-BRANCH="main"
+# Enable exit on error
+set -e
+
+# Define default branch
+DEFAULT_BRANCH="main"
+BRANCH=${1:-$DEFAULT_BRANCH}
 
 # Get the current date and time
 CURRENT_DATE_TIME=$(date +"%Y-%m-%d %H:%M:%S")
@@ -11,12 +15,14 @@ CURRENT_DATE_TIME=$(date +"%Y-%m-%d %H:%M:%S")
 
 # Pull the latest changes from the remote repository
 echo "Pulling the latest changes from the remote repository..."
-git pull origin $BRANCH
+if ! git pull origin $BRANCH; then
+  echo "Error: Failed to pull the latest changes. Resolve any conflicts and try again."
+  exit 1
+fi
 
-# Check for any conflicts during the pull
-if [ $? -ne 0 ]
-then
-  echo "Error: Failed to pull the latest changes."
+# Check for untracked files
+if git status --porcelain | grep -q '^??'; then
+  echo "Error: There are untracked files. Please add or ignore them before proceeding."
   exit 1
 fi
 
@@ -24,35 +30,28 @@ fi
 echo "Staging all changes..."
 git add .
 
-# Commit the changes with the current date and time as the message
-echo "Committing changes..."
-git commit -m "Automated commit on $CURRENT_DATE_TIME"
-
-# Check if the commit was successful
-if [ $? -ne 0 ]
-then
-  echo "Error: Failed to commit changes. Ensure you have staged files."
-  exit 1
+# Check if there are changes to commit
+if ! git diff --cached --quiet; then
+  # Commit the changes with the current date and time as the message
+  echo "Committing changes..."
+  if ! git commit -m "Automated commit on $CURRENT_DATE_TIME"; then
+    echo "Error: Failed to commit changes. Ensure you have staged files."
+    exit 1
+  fi
+else
+  echo "No changes to commit."
 fi
 
 # Pull the latest changes again to avoid conflicts
 echo "Pulling the latest changes again to avoid conflicts..."
-git pull origin $BRANCH
-
-# Check for any conflicts during the pull
-if [ $? -ne 0 ]
-then
-  echo "Error: Failed to pull the latest changes."
+if ! git pull origin $BRANCH; then
+  echo "Error: Failed to pull the latest changes. Resolve any conflicts and try again."
   exit 1
 fi
 
 # Push the changes to the remote repository
 echo "Pushing changes to the remote repository..."
-git push origin $BRANCH
-
-# Check if the push was successful
-if [ $? -ne 0 ]
-then
+if ! git push origin $BRANCH; then
   echo "Error: Failed to push changes."
   exit 1
 fi
