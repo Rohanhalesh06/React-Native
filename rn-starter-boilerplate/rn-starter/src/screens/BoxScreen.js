@@ -4,7 +4,7 @@ import {View,Text,StyleSheet,Button} from 'react-native';
 const BoxScreen = function(){
     return(
         <View style={styles.ViewStyle}>
-            <Text style={styles.TextOneStyle}>#child1</Text>
+            <Text style={styles.TextOneStyle}>App</Text>
             <Text style={styles.TextTwoStyle}>#child2</Text>
             <Text style={styles.TextThreeStyle}>#child3</Text>
             <Text style={styles.TextFourStyle}>#child4</Text>
@@ -29,6 +29,7 @@ const styles=StyleSheet.create({
     TextOneStyle:{
         borderWidth:5,
         borderColor:'green',
+        textAlign:'center',
       //  margin:20,
        // marginHorizontal:20,
         //marginVertical:20,
@@ -38,6 +39,7 @@ const styles=StyleSheet.create({
     TextTwoStyle:{
         borderWidth:5,
         borderColor:'green',
+        alignSelf:'flex-start',
       //  margin:20,
        // marginHorizontal:20,
         //marginVertical:20,
@@ -58,7 +60,7 @@ const styles=StyleSheet.create({
        // marginHorizontal:20,
         //marginVertical:20,
         //flex:4,
-       //alignSelf:'center'
+       alignSelf:'flex-end'
     },
 
     TextFourStyle:{
@@ -68,6 +70,7 @@ const styles=StyleSheet.create({
        // marginHorizontal:20,
         //marginVertical:20,
         //flex:2
+        alignSelf:'center'
     },
 
 });
