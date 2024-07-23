@@ -1,38 +1,12 @@
 import React,{useState,useEffect} from "react";
 import {View,Text,Button,StyleSheet} from "react-native";
 import SearchBox from "./components/SearchBox";
-import yelp from './api/yelp';
+import useResults from "./components/hooks/useResults";
 
 const SearchScreen = function(){
-    const [string,setstring] = useState('')
-    const [results,setResults] = useState([])
-    const [errorMessage,setErrorMessage] = useState('')
-    const searchApi = async() => {
-
-
-    try{
-
-        const response = await yelp.get('/search',{
-            params:{
-                limit:50,
-                term:string,
-                location:'san jose'
-            },
-        });
-        //console.log(response.data.businesses)
-        setResults(response.data.businesses)
-        setErrorMessage('')
-    }
-    catch(err){
-        setErrorMessage('Something went Wrong ');
-
-    }}
-
-    useEffect(() => {
-        searchApi('pasta')
-
-
-    },[]);
+    const [string,setstring] = useState('');
+    const [searchApi,results,errorMessage] = useResults()
+    
 
     return(
         <View>
@@ -50,8 +24,5 @@ const SearchScreen = function(){
 
 
 const  styles = StyleSheet.create({})
-
-
-
 
 export default SearchScreen;
