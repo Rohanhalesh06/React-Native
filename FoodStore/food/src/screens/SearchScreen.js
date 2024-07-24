@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react";
-import {View,Text,Button,StyleSheet} from "react-native";
+import {View,Text,Button,StyleSheet,ScrollView} from "react-native";
 import SearchBox from "./components/SearchBox";
 import useResults from "./components/hooks/useResults";
 import ResultsList from "./components/resultsList";
@@ -16,24 +16,30 @@ const filterByResults = function(price){
     
 
     return(
-        <View>
-            <SearchBox 
+        <>
+            <SearchBox
+
                 string={string} 
                 onstringchange={setstring}
                 onSearchSubmit={()=> searchApi() }
             />
-            <Text>we got {results.length} results</Text>
 
-            <ResultsList title='Cost Effective' results={filterByResults('$')}/>
-            <ResultsList title='Bit Costlier' results={filterByResults('$$')}/>
-            <ResultsList title='Big Spender' results={filterByResults('$$$')}/>
+           <ScrollView>
+                <ResultsList title='Cost Effective' results={filterByResults('$')}/>
+                <ResultsList title='Bit Costlier' results={filterByResults('$$')}/>
+                <ResultsList title='Big Spender' results={filterByResults('$$$')}/>
+            </ScrollView> 
+
             {errorMessage ? <Text>{errorMessage}</Text> : null }
+
             
-        </View>
+        </>
     );
 }
 
 
-const  styles = StyleSheet.create({})
+const  styles = StyleSheet.create({
+    
+})
 
 export default SearchScreen;

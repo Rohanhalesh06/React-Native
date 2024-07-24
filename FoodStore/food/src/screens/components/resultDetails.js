@@ -15,13 +15,12 @@ const ResultDetails = function({result}){
 
 }
 
-export default ResultDetails;
 
 const styles = StyleSheet.create({
 
     imageStyle:{
-        height:120,
-        width:200,
+        height:150,
+        width:250,
         borderRadius:4,
         marginBottom:5
 
@@ -36,7 +35,7 @@ const styles = StyleSheet.create({
     
 
     container:{
-        marginLeft:15
+        marginLeft:15,
 
     },
 
@@ -46,3 +45,6 @@ const styles = StyleSheet.create({
     
 
 })
+
+export default ResultDetails;
+
