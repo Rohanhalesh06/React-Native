@@ -7,6 +7,10 @@ set -e
 DEFAULT_BRANCH="main"
 BRANCH=${1:-$DEFAULT_BRANCH}
 
+echo "Staging all changes..."
+git add .
+
+
 # Get the current date and time
 CURRENT_DATE_TIME=$(date +"%Y-%m-%d %H:%M:%S")
 
@@ -27,8 +31,6 @@ if git status --porcelain | grep -q '^??'; then
 fi
 
 # Stage all changes
-echo "Staging all changes..."
-git add .
 
 # Check if there are changes to commit
 if ! git diff --cached --quiet; then
