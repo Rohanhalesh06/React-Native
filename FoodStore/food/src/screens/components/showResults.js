@@ -14,7 +14,7 @@ const ShowResults = ({navigation}) => {
         try{
     
             const response = await yelp.get(`/${id}`);
-            //console.log(response.data.businesses)
+            console.log(response.data)
             setResults(response.data)
             setErrorMessage('')
         }
@@ -33,22 +33,23 @@ const ShowResults = ({navigation}) => {
         if(!results){
             return null;
         }
+      // console.log(results.name)
 
-
+    return(
         <View>
+            <Text>{results.name}</Text>
+
         <FlatList
-            data={results.photos}
-            keyExtractor={(photo) => photo }
-            renderItem={({item}) => 
-                <Image 
-                    source={{item}}
-                    style={styles.imageStyle}
-                />
-            }
+            data={results}
+            keyExtractor={photo => photo }
+            renderItem={({item}) => {
+                return <Image style={styles.imageStyle} source={{item}} />
+
+            }}
         />
 
         </View>
-
+    )
 };
 
 const styles = StyleSheet.create({
