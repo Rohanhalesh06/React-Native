@@ -16,7 +16,7 @@ const ResultsList = function({title,results}){
                 }}          
 
             />
-        </View>
+        </View>'''
     );
 }
 
