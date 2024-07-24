@@ -7,6 +7,12 @@ import ResultsList from "./components/resultsList";
 const SearchScreen = function(){
     const [string,setstring] = useState('');
     const [searchApi,results,errorMessage] = useResults()
+
+const filterByResults = function(price){
+    return results.filter(result => {
+        return result.price === price;
+    })
+}
     
 
     return(
@@ -16,16 +22,13 @@ const SearchScreen = function(){
                 onstringchange={setstring}
                 onSearchSubmit={()=> searchApi() }
             />
-            <Text>Search Screen</Text>
             <Text>we got {results.length} results</Text>
-            <ResultsList/>
-            <ResultsList/>
 
-            <ResultsList/>
-
-            <ResultsList/>
-
+            <ResultsList title='Cost Effective' results={filterByResults('$')}/>
+            <ResultsList title='Bit Costlier' results={filterByResults('$$')}/>
+            <ResultsList title='Big Spender' results={filterByResults('$$$')}/>
             {errorMessage ? <Text>{errorMessage}</Text> : null }
+            
         </View>
     );
 }
