@@ -4,6 +4,14 @@ import ResultDetails from './resultDetails';
 import { withNavigation } from 'react-navigation';
 
 const ResultsList = function({title,results,navigation}){
+    if(!results.length){
+        return null
+    }
+
+    const imagesArray = results.map(result => result.image_url); // Adjust 'image' based on your actual data structure
+    //console.log(imagesArray)
+
+
     return(
         <View>
             <Text style={styles.title}>{title}</Text>
@@ -16,7 +24,7 @@ const ResultsList = function({title,results,navigation}){
 
                     return(
 
-                    <TouchableOpacity onPress={() => navigation.navigate('ShowResults',{id:item.id})}>
+                    <TouchableOpacity onPress={() => navigation.navigate('ShowResults',{images:imagesArray,id:item.id})}>
                         <ResultDetails result={item}/>
                     </TouchableOpacity>
                 );

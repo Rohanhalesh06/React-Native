@@ -39,6 +39,11 @@ const filterByResults = function(price){
 
 
 const  styles = StyleSheet.create({
+
+    viewStyle:{
+        flex:1,
+        marginLeft:5
+    }
     
 })
 

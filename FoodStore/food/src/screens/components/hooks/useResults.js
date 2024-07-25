@@ -16,7 +16,7 @@ const useResults = () => {
                     location:'san jose'
                 },
             });
-            //console.log(response.data.businesses)
+            console.log(response.data.businesses.image_url)
             setResults(response.data.businesses)
             setErrorMessage('')
         }
