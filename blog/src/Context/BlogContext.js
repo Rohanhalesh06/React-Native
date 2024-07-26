@@ -1,5 +1,4 @@
-import createDataContext from "./Context/createDataContext";
-
+import createDataContext from "./createDataContext";
 const BlogReducer = function(state,action){
     switch(action.type){
         case 'add':
