@@ -1,6 +1,5 @@
-import React,{createContext,useReducer} from "react";
+import createDataContext from "./createDataContext";
 
-const Context = createContext()
 
 const reducer = function(state,action){
     switch(action.type){
@@ -12,23 +11,16 @@ const reducer = function(state,action){
 
 }
 
-
-
-
-export const Provider = function({children}){
-    const [state,dispatch] = useReducer(reducer,[]);
-
-
-    const addBlog = function(){
-        dispatch({type:'add'})
+    const addBlog = function(dispatch){
+        return function(){
+            dispatch({type:'add'})
+        }
     }
     
 
 
-        return  <Context.Provider value={{data:state,addBlog}}>{children}</Context.Provider>
-}
+export const {Context ,Provider} = createDataContext(reducer,{addBlog},[])
 
-export default Context;
 
 
 
