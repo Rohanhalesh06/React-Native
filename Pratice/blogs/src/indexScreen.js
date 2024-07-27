@@ -1,10 +1,13 @@
 import React,{useContext} from 'react'
-import {View,Style,Text,Button,FlatList} from 'react-native'
+import {View,StyleSheet,Text,Button,FlatList,TouchableOpacity} from 'react-native'
 import { Context } from './context/BlogContext'
+import {Feather} from '@expo/vector-icons'
+
 const IndexScreen =function(){
 const {state,addBlog} = useContext(Context)
-console.log()
-console.log()
+//console.log()
+//console.log()
+
     return(
         <View>
             <Text>IndexScreen</Text>
@@ -21,9 +24,29 @@ console.log()
             data={state}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item})=>(
-                <View>
+                <View style={styles.row}>
 
-                    <Text>{item.title}</Text>
+                    <Text style={styles.titleStyle}>{item.title} - { item.id } </Text>
+
+
+                    <TouchableOpacity
+                    
+                        onPress={()=>{
+                            console.log(`${item.id} deleted`)
+
+                        }}
+                    
+                    
+                    
+                    
+                    
+                    >
+
+                    <Feather
+                        name='trash'
+                        style={styles.iconStyle}
+                    />
+                    </TouchableOpacity>
 
                 </View>
             )}
@@ -33,6 +56,39 @@ console.log()
         </View>
     );
 }
+
+
+
+const styles = StyleSheet.create({
+    row:{
+        flexDirection:'row',
+        justifyContent:'space-between',
+        paddingVertical:20,
+        borderTopWidth:1,
+        borderColor:'black',
+        paddingHorizontal:10
+
+    },
+    
+    titleStyle:{
+        fontSize:20
+    },
+
+    iconStyle:{
+        fontSize:20
+
+    }
+
+
+
+
+
+
+
+
+
+
+})
 
 
 export default IndexScreen

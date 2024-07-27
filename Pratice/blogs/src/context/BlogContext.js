@@ -4,7 +4,12 @@ import createDataContext from "./createDataContext";
 const reducer = function(state,action){
     switch(action.type){
         case 'add':
-            return [...state,{title:`blog post #${state.length}`}]
+            return [
+                ...state,
+                {title:`blog post #${state.length}`,
+                 id:Math.floor(Math.random() * 9999)       
+                }
+            ]
         default:
             return state;
     }
