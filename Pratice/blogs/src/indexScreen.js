@@ -3,7 +3,7 @@ import {View,StyleSheet,Text,Button,FlatList,TouchableOpacity} from 'react-nativ
 import { Context } from './context/BlogContext'
 import {Feather} from '@expo/vector-icons'
 
-const IndexScreen =function(){
+const IndexScreen =function({navigation}){
 const {state,addBlog,delBlog} = useContext(Context)
 //console.log()
 //console.log()
@@ -24,6 +24,18 @@ const {state,addBlog,delBlog} = useContext(Context)
             data={state}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item})=>(
+
+
+                <TouchableOpacity
+
+                    onPress={function(){
+                        navigation.navigate('showscreen',{id:item.id})
+
+                    }}
+                
+                
+                
+                >
                 <View style={styles.row}>
 
                     <Text style={styles.titleStyle}>{item.title} - { item.id } </Text>
@@ -35,11 +47,7 @@ const {state,addBlog,delBlog} = useContext(Context)
                             delBlog(item.id)
 
                         }}
-                    
-                    
-                    
-                    
-                    
+
                     >
 
                     <Feather
@@ -49,6 +57,7 @@ const {state,addBlog,delBlog} = useContext(Context)
                     </TouchableOpacity>
 
                 </View>
+                </TouchableOpacity>
             )}
 
         />
@@ -56,6 +65,22 @@ const {state,addBlog,delBlog} = useContext(Context)
         </View>
     );
 }
+
+
+IndexScreen.navigationOptions = function({navigation}){
+    
+    return {
+        headerRight: () => (
+          <TouchableOpacity onPress={() => navigation.navigate('createscreen')}>
+            <Feather name="plus" size={30} />
+          </TouchableOpacity>
+        ),
+      };
+}
+
+
+
+
 
 
 
