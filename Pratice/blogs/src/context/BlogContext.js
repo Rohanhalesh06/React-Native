@@ -1,6 +1,5 @@
 import createDataContext from "./createDataContext";
 
-
 const reducer = function(state,action){
     console.log(action)
     switch(action.type){
@@ -14,8 +13,12 @@ const reducer = function(state,action){
         case 'add':
             return [
                 ...state,
-                {title:`blog post #${state.length}`,
-                 id:Math.floor(Math.random() * 9999)       
+                { title:action.payload.title,
+                  
+                 
+                  id:Math.floor(Math.random() * 9999),       
+                  
+                  content:action.payload.content
                 }
             ]
    
@@ -26,8 +29,8 @@ const reducer = function(state,action){
 }
 
     const addBlog = function(dispatch){
-        return function(){
-            dispatch({type:'add'})
+        return function(title,content){
+            dispatch({type:'add',payload:{title,content}})
         }
     }
 
@@ -39,7 +42,7 @@ const reducer = function(state,action){
     
 
 
-export const {Context ,Provider} = createDataContext(reducer,{addBlog,delBlog},[])
+export const {Context ,Provider} = createDataContext(reducer,{addBlog,delBlog},[{title:'Test title',content:'Test content',id:'1'}])
 
 
 

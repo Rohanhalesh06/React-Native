@@ -5,10 +5,12 @@ import IndexScreen from './src/indexScreen';
 import { Provider } from './src/context/BlogContext';
 import showScreen from './src/showScreen';
 import createScreen from './src/createScreen';
+import EditScreen from './src/editScreen';
 const navigation = createStackNavigator(
   {Index : IndexScreen,
    showscreen : showScreen,
    createscreen : createScreen,
+   edit: EditScreen
    
   },
   

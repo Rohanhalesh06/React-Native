@@ -3,23 +3,14 @@ import {View,StyleSheet,Text,Button,FlatList,TouchableOpacity} from 'react-nativ
 import { Context } from './context/BlogContext'
 import {Feather} from '@expo/vector-icons'
 
-const IndexScreen =function({navigation}){
+const IndexScreen = function({navigation}){
 const {state,addBlog,delBlog} = useContext(Context)
 //console.log()
 //console.log()
 
     return(
         <View>
-            <Text>IndexScreen</Text>
 
-
-            <Button
-                title='Add Blog'
-                onPress={()=>{
-                    addBlog()
-                    
-                }}
-            />
         <FlatList
             data={state}
             keyExtractor={(item, index) => index.toString()}
