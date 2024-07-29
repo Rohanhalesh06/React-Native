@@ -1,6 +1,5 @@
-import React, {useState,useContext} from "react";
-import {Text,StyleSheet,View,TextInput} from "react-native";
-import { Context } from "./context/BlogContext";
+import React from "react";
+import {Text,StyleSheet,View} from "react-native";
 import BlogForm from "./components/blogForm";
 
 const EditScreen = function({navigation}){
