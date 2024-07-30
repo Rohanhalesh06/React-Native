@@ -21,6 +21,17 @@ const reducer = function(state,action){
                   content:action.payload.content
                 }
             ]
+
+            case 'edit':
+
+                return state.map(function(BlogPost){
+                    if(BlogPost.id ==  action.payload.id)
+                        return action.payload
+                    else
+                        return BlogPost
+                })
+
+
    
         default:
             return state;
@@ -29,20 +40,34 @@ const reducer = function(state,action){
 }
 
     const addBlog = function(dispatch){
-        return function(title,content){
+        return function(title,content,callback){
             dispatch({type:'add',payload:{title,content}})
+            if(callback){callback()}
         }
     }
 
     const delBlog = function(dispatch){
         return function(id){
             dispatch({type:'del',payload:id})
+
+        }
+    }
+
+    const editBlog = function(dispatch){
+        return function(id,title,content,callback){
+            dispatch({
+                type:'edit',
+                payload:{id,title,content}
+            });
+            if(callback){callback()}
+
+
         }
     }
     
 
 
-export const {Context ,Provider} = createDataContext(reducer,{addBlog,delBlog},[{title:'Test title',content:'Test content',id:'1'}])
+export const {Context ,Provider} = createDataContext(reducer,{addBlog,delBlog,editBlog},[{title:'Test title',content:'Test content',id:'1'}])
 
 
 

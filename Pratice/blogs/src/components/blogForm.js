@@ -1,12 +1,13 @@
 import React,{useState,useContext} from "react";
 import {Text,View,StyleSheet,TextInput,Button} from "react-native";
-import { Context } from "../context/BlogContext";
 
 
-const BlogForm = function({navigation}){
-    const [title,settitle] = useState('')
-    const [content,setContent] = useState('');
-    const {addBlog} = useContext(Context);
+
+
+
+const BlogForm = function({onSubmit,initialValues={title:'',content:''}}){
+    const [title,settitle] = useState(initialValues.title)
+    const [content,setContent] = useState(initialValues.content)
   
 
 
@@ -17,6 +18,8 @@ return(
         <TextInput
             style={styles.inputStyle}
             onChangeText={function(text){settitle(text)}}
+            value={title}
+
         />
 
 
@@ -24,13 +27,14 @@ return(
         <TextInput
             style={styles.inputStyle}
             onChangeText={function(value){setContent(value)}} 
+            value={content}
         />
 
 
         <Button
 
             title="Save Blog"
-            onPress={function(){addBlog(title,content)}}
+            onPress={function(){onSubmit(title,content)}}
 
         />
 
