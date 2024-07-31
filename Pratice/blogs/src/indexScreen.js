@@ -1,12 +1,12 @@
-import React,{useContext} from 'react'
+import React,{useContext,useEffect} from 'react'
 import {View,StyleSheet,Text,Button,FlatList,TouchableOpacity} from 'react-native'
 import { Context } from './context/BlogContext'
 import {Feather} from '@expo/vector-icons'
 
 const IndexScreen = function({navigation}){
-const {state,addBlog,delBlog} = useContext(Context)
-//console.log()
-//console.log()
+const {state,addBlog,delBlog,getBlogs} = useContext(Context)
+useEffect(function(){getBlogs()},[])
+
 
     return(
         <View>

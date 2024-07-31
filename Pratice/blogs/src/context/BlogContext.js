@@ -1,7 +1,8 @@
 import createDataContext from "./createDataContext";
+import jsonserver from "../api/jsonserver";
 
 const reducer = function(state,action){
-    console.log(action)
+   // console.log(action)
     switch(action.type){
         case 'del':{
             //return state.filter((blogPost)=>{ action.payload === blogPost.id})
@@ -30,6 +31,9 @@ const reducer = function(state,action){
                     else
                         return BlogPost
                 })
+
+            case 'getBlogs':
+                return action.payload
 
 
    
@@ -64,10 +68,16 @@ const reducer = function(state,action){
 
         }
     }
+
+    const getBlogs = function(dispatch){
+        return async function(){
+            console.log("Dispatched")
+        const  response = await jsonserver.get('blogPosts')
+         dispatch({type:'getBlogs',payload:response.data})
+        }
+    }
     
-
-
-export const {Context ,Provider} = createDataContext(reducer,{addBlog,delBlog,editBlog},[{title:'Test title',content:'Test content',id:'1'}])
+export const {Context ,Provider} = createDataContext(reducer,{addBlog,delBlog,editBlog,getBlogs},[])
 
 
 
