@@ -16,9 +16,9 @@ const EditScreen = function({navigation}){
         
         initialValues={{title:BlogPost.title, content:BlogPost.content}}
         onSubmit={(title,content)=>{editBlog(id,title,content,
+            
             function(){
                 navigation.navigate('Index')
-                
             })
         }}
         

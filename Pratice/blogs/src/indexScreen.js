@@ -5,6 +5,7 @@ import {Feather} from '@expo/vector-icons'
 
 const IndexScreen = function({navigation}){
 const {state,addBlog,delBlog,getBlogs} = useContext(Context)
+
 useEffect(
 
     function(){
