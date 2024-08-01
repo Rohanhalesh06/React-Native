@@ -11,27 +11,6 @@ const reducer = function(state,action){
             })
         }
 
-        case 'add':
-            return [
-                ...state,
-                { title:action.payload.title,
-                  
-                 
-                  id:Math.floor(Math.random() * 9999),       
-                  
-                  content:action.payload.content
-                }
-            ]
-
-            case 'edit':
-
-                return state.map(function(BlogPost){
-                    if(BlogPost.id ==  action.payload.id)
-                        return action.payload
-                    else
-                        return BlogPost
-                })
-
             case 'getBlogs':
                 return action.payload
 
@@ -43,26 +22,26 @@ const reducer = function(state,action){
 
 }
 
-    const addBlog = function(dispatch){
+    const addBlog = function(){
         return function(title,content,callback){
-            dispatch({type:'add',payload:{title,content}})
-            if(callback){callback()}
+            const request = jsonserver.post('/blogPosts',{title,content})
+            if(callback)
+                callback()
         }
-    }
+
+    }    
 
     const delBlog = function(dispatch){
-        return function(id){
+        return async function(id){
+            await jsonserver.delete(`blogPosts/${id}`)
             dispatch({type:'del',payload:id})
 
         }
     }
 
-    const editBlog = function(dispatch){
-        return function(id,title,content,callback){
-            dispatch({
-                type:'edit',
-                payload:{id,title,content}
-            });
+    const editBlog = function(){
+        return async function(id,title,content,callback){
+            await jsonserver.put(`blogPosts/${id}`,{title,content})
             if(callback){callback()}
 
 
@@ -71,7 +50,7 @@ const reducer = function(state,action){
 
     const getBlogs = function(dispatch){
         return async function(){
-            console.log("Dispatched")
+            //console.log("Dispatched")
         const  response = await jsonserver.get('blogPosts')
          dispatch({type:'getBlogs',payload:response.data})
         }
