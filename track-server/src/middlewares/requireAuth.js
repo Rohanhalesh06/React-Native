@@ -4,18 +4,17 @@ const User = mongoose.model('User');
 
 module.exports = 
 
-function(res,req,next){
-        const {authorization} = res.headers;
+function(req,res,next){
+        const {authorization} = req.headers;
         if(!authorization){
-            return req.send("You must be loggedin")
-        }
+            return res.status(401).send({ error: 'You must be logged in.' });        }
 
         const token = authorization.replace('Bearer ','');
         jwt.verify(token,'MY_SECRET_KEY', 
             async function(err,payload){
 
                 if(err){
-                    return  req.status(401).send({error:'you must be loggedin '});
+                    return  res.status(401).send({error:'you must be loggedin '});
 
             }
 
