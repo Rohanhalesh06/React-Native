@@ -1,11 +1,19 @@
 import Recat from "react";
-import {view ,StyleSheet,Text} from 'react-native';
+import {View ,StyleSheet,Text,Button} from 'react-native';
 
-const SignupScreen = () => {
-    return <Text style={{fontSize:48}}>SignupScreen</Text>;
-}
+const SignupScreen = ({navigation}) => {
+    return(
 
+        <View>
+        <Text style={{fontSize:48}}>SignupScreen</Text>
+
+        <Button
+            title="Go to Search"
+            onPress={()=>{navigation.navigate('Signin')}}
+        />
+        </View>
+    )}
 const styles = StyleSheet.create({});
 
-export default AccountScreen;
+export default SignupScreen;
  
