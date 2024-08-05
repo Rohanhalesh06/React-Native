@@ -1,7 +1,7 @@
 import Recat from "react";
-import {view ,StyleSheet,Text} from 'react-native';
+import {view ,StyleSheet,Text,Button} from 'react-native';
 
-const TrackListScreen = () => {
+const TrackListScreen = ({navigation}) => {
 return(
 
         <>

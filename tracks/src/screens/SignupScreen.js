@@ -1,17 +1,25 @@
-import Recat from "react";
-import {View ,StyleSheet,Text,Button} from 'react-native';
+import React from "react";
+import {StyleSheet,Text,Button} from 'react-native';
+import {View} from "react-native-elements"
 
 const SignupScreen = ({navigation}) => {
     return(
 
-        <View>
+        <>
         <Text style={{fontSize:48}}>SignupScreen</Text>
 
         <Button
-            title="Go to Search"
-            onPress={()=>{navigation.navigate('Signin')}}
+            title="Go to Signin"
+            onPress={()=>{navigation.navigate('Signin')}}   
         />
-        </View>
+
+        <Button
+            title="Go to main flow"
+            onPress={()=>{navigation.navigate('mainFlow')}}   
+        />
+
+       
+        </>
     )}
 const styles = StyleSheet.create({});
 
