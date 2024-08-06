@@ -7,6 +7,9 @@ import TrackCreateScreen from "./src/screens/TrackCreateScreen";
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
+import  { Provider as AuthProvider } from './src/context/AuthContext' 
+import { setNavigator } from "./src/navigationRef";
+
 
 
 const switchNavigator = createSwitchNavigator({
@@ -28,15 +31,11 @@ const switchNavigator = createSwitchNavigator({
 
 )
 
+const App = createAppContainer(switchNavigator);
 
-
-
-
-
-
-
-
-
-
-  /**/
-export default createAppContainer(switchNavigator);
+export default () =>{
+  return(
+    <AuthProvider>
+      <App ref={(navigator)=>{setNavigator(navigator)}}/>
+    </AuthProvider>
+  )};

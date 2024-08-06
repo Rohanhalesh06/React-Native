@@ -1,10 +1,10 @@
 import React, { Children } from "react";
 import {View,StyleSheet} from "react-native";
 
-const Spacer = function(){
+const Spacer = ({children})=>{
 
     return(
-    <View>style={styles.SpaceStyle}{Children}</View> 
+    <View style={styles.SpaceStyle}>{children}</View> 
     )};
 
 const styles = StyleSheet.create({

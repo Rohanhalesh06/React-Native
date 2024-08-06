@@ -1,27 +1,15 @@
-import React from "react";
-import {StyleSheet,Text,Button} from 'react-native';
-import {View} from "react-native-elements"
-
+import React,{useState,useContext} from "react";
+import {View} from 'react-native';
+import AuthForm from "../context/authForm";
 const SignupScreen = ({navigation}) => {
+   
+    //console.log(state);
+
     return(
+            <View>
+                <AuthForm/>
 
-        <>
-        <Text style={{fontSize:48}}>SignupScreen</Text>
+            </View>
+    )};
 
-        <Button
-            title="Go to Signin"
-            onPress={()=>{navigation.navigate('Signin')}}   
-        />
-
-        <Button
-            title="Go to main flow"
-            onPress={()=>{navigation.navigate('mainFlow')}}   
-        />
-
-       
-        </>
-    )}
-const styles = StyleSheet.create({});
-
-export default SignupScreen;
- 
+    export default SignupScreen;

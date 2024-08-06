@@ -1,7 +1,7 @@
-import Recat from "react";
-import {view ,StyleSheet,Text,Button} from 'react-native';
+import React from "react";
+import {View ,StyleSheet,Text,Button} from 'react-native';
 
-const SigninScreen = () => {
+const SigninScreen = ({navigation}) => {
     return(
         <>
             <Text style={{fontSize:48}}>SigninScreen</Text>
@@ -9,10 +9,8 @@ const SigninScreen = () => {
 
             title="go to signup"
             onPress={()=>{
-                navigator.navigate("Signup")
+                navigation.navigate("Signup")
             }}
-            
-            
             />
         </>
     
