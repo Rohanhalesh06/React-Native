@@ -1,83 +1,53 @@
-import React,{useState,useContext} from "react";
-import {StyleSheet,View,TouchableOpacity} from 'react-native';
-import {Button,Text,Input} from "react-native-elements";
-import Spacer from "../screens/components/spacer"
-import { Context as AuthContext } from "../context/AuthContext";
-const AuthForm = ({navigation}) => {
-    const [email,setEmail] = useState('');
-    const [password,setPassword] = useState('');
-    const {state,signup} = useContext(AuthContext)
-    console.log(state);
+import React, { useState } from 'react';
+import { StyleSheet } from 'react-native';
+import { Text, Button, Input } from 'react-native-elements';
+import Spacer from './Spacer';
 
-    return(
-            <View style={styles.container}>
-                <Spacer>
-                    <Text h3>Sign Up for Tracker </Text>
-                </Spacer>
+const AuthForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-                <Input
-                    label='Email'
-                    value={email}
-                    onChangeText={function(email){setEmail(email)}}
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                />
-                <Spacer/>
-
-                <Input
-                    secureTextEntry
-                    label='Password'
-                    value={password}
-                    onChangeText={function(pass){setPassword(pass)}}
-                    autoCapitalize="none"
-                    autoCorrect={false}
-    
-                />
-
-                <Spacer>
-                    <Button
-                        title="Sign Up"
-                        onPress={function(){signup({email,password})}}  
-                    />
-                </Spacer>
-                {state.errorMessage ? <Text style={styles.errorMessage}>{state.errorMessage}</Text> : null}
-                <Spacer/>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('Signin')}>
-                    <Text style={styles.link}>Already have an account? Sign in instead</Text>
-                    
-                </TouchableOpacity>
-
-
-            </View>
-    )};
-
-    AuthForm.navigationOptions = () => {
-        return {
-          headerShown: false,
-        };
-      };
+  return (
+    <>
+      <Spacer>
+        <Text h3>{headerText}</Text>
+      </Spacer>
+      <Input
+        label="Email"
+        value={email}
+        onChangeText={setEmail}
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
+      <Spacer />
+      <Input
+        secureTextEntry
+        label="Password"
+        value={password}
+        onChangeText={setPassword}
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
+      {errorMessage ? (
+        <Text style={styles.errorMessage}>{errorMessage}</Text>
+      ) : null}
+      <Spacer>
+        <Button
+          title={submitButtonText}
+          onPress={() => onSubmit({ email, password })}
+        />
+      </Spacer>
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
-    container:{
-        flex:1,
-        justifyContent:'center',
-       marginBottom:250,
-
-    },
-    errorMessage:{
-        fontSize:20,
-        color:'red',
-        marginLeft:10
-
-    },
-
-    link:{
-        color:'blue',
-        marginLeft:10
-    },
-
+  errorMessage: {
+    fontSize: 16,
+    color: 'red',
+    marginLeft: 15,
+    marginTop: 15
+  }
 });
 
 export default AuthForm;
- 
