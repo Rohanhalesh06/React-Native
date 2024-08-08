@@ -8,13 +8,43 @@ const authReducer = function(state,action){
         case 'addErr' :
             return {...state,errorMessage:action.payload};
 
-        case 'signup':
-            return {errorMessage:'',token:action.payload}
+        case 'signin':
+            console.log("signin invoked ")
+            return {errorMessage:'',token:action.payload};
+
+        case 'signout':
+            console.log("signout function called");
+            return ({token:null,errorMessage:''});
+
+
+
+
+        case 'clearErrorMessage':
+            return {...state,errorMessage:''}
 
         default:
             return state;
     }
 };
+
+const tryLocalSignin =  function(dispatch){
+    return async function(){
+        const token = await AsyncStorage.getItem('token');
+        if(token){
+            console.log("stored token ",token)
+
+            dispatch({type:'signin',payload:token});
+            navigate('TrackList')
+
+        }
+        else
+        {
+            navigate('Signup');
+        }
+    }
+}
+
+
 
 const signup = function(dispatch){
     return async function({email,password}){
@@ -24,29 +54,64 @@ const signup = function(dispatch){
 
             const response = await trackerApi.post('/signup',{email,password});
             await AsyncStorage.setItem('token',response.data.token);
-            //console.log(response.data);
-            dispatch({type:'signup',payload:response.data.token});
+            console.log(response.data);
+            dispatch({type:'signin',payload:response.data.token});
             navigate('TrackList')
             
         }
         
         catch(err){
+            console.log(err)
             dispatch({type:'addErr',payload:'Something went Wrong '})
+
         }
 
     };
 };
 
 
-const signin = function(dispatch){
-    return function({email,password}){
+const clearErrorMessage = function(dispatch){
+    return function(){
+        dispatch({type:'clearErrorMessage'})
+    }
+}
 
+
+const signin = function(dispatch){
+
+    return async function({email,password}){
+        try
+        {   
+            const response = await trackerApi.post('/signin',{email,password});
+            console.log(response.data.token)
+            await AsyncStorage.setItem('token',response.data.token);
+            const token = await AsyncStorage.getItem('token');
+            console.log("Stored token : ",token)
+            dispatch({type:'signin',payload:response.data.token});
+            navigate('TrackList')
+        }
+        catch(err)
+        {
+
+            console.log(err)
+
+            dispatch({
+                type:'addErr',
+                payload:'Something went Wrong '
+            })
+
+        }   
     };
 };
 
 
 const signout =  function(dispatch){
-    return function({email,password}){
+    return async function(){
+        await AsyncStorage.removeItem('token');
+        dispatch({type:'signout'});
+        navigate('loginFlow')
+
+        
 
     };
 ;}
@@ -55,7 +120,7 @@ const signout =  function(dispatch){
 
 export const {Provider,Context} = createdataContext(
     authReducer,
-    {signin,signout,signup},
+    {signin,signout,signup,clearErrorMessage,tryLocalSignin},
     {token:null,errorMessage:''}
 );
 
