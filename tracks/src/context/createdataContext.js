@@ -16,6 +16,7 @@ export default function(reducer,actions,initialValue){
 
             <Context.Provider value={{state,...boundActions}}>
                 {children}
+                
             </Context.Provider>
 
         );

@@ -3,6 +3,14 @@ import createdataContext from "./createdataContext";
 const locationReducer = function(state,action) {
     switch(action.type){
 
+        case 'Reset':
+            return {...state,name:"",locations:[]}
+
+        case 'changeName':
+            {
+            return {...state,name:action.payload}
+            }
+
         case 'add_location':
             return {...state,locations:[...state.locations,action.payload]}
 
@@ -20,10 +28,17 @@ const locationReducer = function(state,action) {
     }
 };
 
+const Reset = function(dispatch){
+    return function(){
+        dispatch({type:'reset'})
+
+    }
+}
+
 
 const changeName = function(dispatch){
     return function(name){
-        dispatch({type:'changenName',payload:name})
+        dispatch({type:'changeName',payload:name})
     }
 }
 
@@ -43,7 +58,7 @@ const stopRecording = function(dispatch){
 
 const addLocation = function(dispatch){
     return function(location,recording){
-        console.log("location : ",location)
+       // console.log("location : ",location)
         dispatch({type:'add_current_location',payload:location});
         if(recording){
             dispatch({type:'add_location',payload:location})
@@ -53,5 +68,5 @@ const addLocation = function(dispatch){
 
 
 export const {Context,Provider} = createdataContext(locationReducer,
-    {startRecording,stopRecording,addLocation,changeName},
+    {startRecording,stopRecording,addLocation,changeName,Reset},
     {name:'',recording:false,locations:[],currentLocation:null });

@@ -9,7 +9,7 @@ const authReducer = function(state,action){
             return {...state,errorMessage:action.payload};
 
         case 'signin':
-            console.log("signin invoked ")
+            //console.log("signin invoked ")
             return {errorMessage:'',token:action.payload};
 
         case 'signout':
@@ -31,7 +31,7 @@ const tryLocalSignin =  function(dispatch){
     return async function(){
         const token = await AsyncStorage.getItem('token');
         if(token){
-            console.log("stored token ",token)
+            //console.log("stored token ",token)
 
             dispatch({type:'signin',payload:token});
             navigate('TrackList')
