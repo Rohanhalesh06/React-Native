@@ -1,7 +1,7 @@
 const express = require('express')
 
 const mongoose = require('mongoose');
-const requireAuth = require('../middlewares//requireAuth')
+const requireAuth = require('../middlewares/requireAuth')
 
 const Track = mongoose.model('Track');
 
@@ -24,7 +24,8 @@ router.post('/tracks',async function(req,res){
     try{
         const track = new Track({name,locations,userId:req.user._id});
         await track.save();
-        return res.status(401).send('metadata saved')
+        res.send(track)
+
 
     }catch(err){
         res.status(422).send({error: err.message });

@@ -13,7 +13,7 @@ const authReducer = function(state,action){
             return {errorMessage:'',token:action.payload};
 
         case 'signout':
-            console.log("signout function called");
+           // console.log("signout function called");
             return ({token:null,errorMessage:''});
 
 
@@ -54,14 +54,14 @@ const signup = function(dispatch){
 
             const response = await trackerApi.post('/signup',{email,password});
             await AsyncStorage.setItem('token',response.data.token);
-            console.log(response.data);
+          //  console.log(response.data);
             dispatch({type:'signin',payload:response.data.token});
             navigate('TrackList')
             
         }
         
         catch(err){
-            console.log(err)
+           // console.log(err)
             dispatch({type:'addErr',payload:'Something went Wrong '})
 
         }
@@ -83,17 +83,17 @@ const signin = function(dispatch){
         try
         {   
             const response = await trackerApi.post('/signin',{email,password});
-            console.log(response.data.token)
+           // console.log(response.data.token)
             await AsyncStorage.setItem('token',response.data.token);
             const token = await AsyncStorage.getItem('token');
-            console.log("Stored token : ",token)
+            //console.log("Stored token : ",token)
             dispatch({type:'signin',payload:response.data.token});
             navigate('TrackList')
         }
         catch(err)
         {
 
-            console.log(err)
+         //   console.log(err)
 
             dispatch({
                 type:'addErr',

@@ -9,7 +9,6 @@ export default function(){
     const {state:{locations,name},Reset} = useContext(LocationContext);
 
     const saveTrack =   function(){
-        console.log(name,locations)
          createTracks(name,locations);
          Reset();
          navigate('TrackList')

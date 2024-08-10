@@ -8,8 +8,9 @@ import { Accuracy, requestForegroundPermissionsAsync, watchPositionAsync } from 
 import {Context as LocationContext} from '../context/LocationContext'
 import useLocation from '../hooks/useLocation';
 import TrackForm from '../context/TrackForm';
-
-
+import { FontAwesome } from '@expo/vector-icons';
+import Spacer from './components/spacer';
+ 
 
 const TrackCreateScreen = ({isFocused}) => {
     const {state:{recording},addLocation} = useContext(LocationContext)
@@ -31,7 +32,8 @@ const TrackCreateScreen = ({isFocused}) => {
 
     return(
         <SafeAreaView forceInset={{top:'always'}}>
-        <Text h2>Create Track</Text>
+        <Spacer/>
+        <Spacer/>
         <Map/>
         
         {err 
@@ -44,6 +46,13 @@ const TrackCreateScreen = ({isFocused}) => {
         </SafeAreaView>
     )
 }
+
+TrackCreateScreen.navigationOptions = {
+    title : 'Add Track',
+    tabBarIcon: <FontAwesome name = "plus" size={20}/>
+};
+
+
 
 export default withNavigationFocus(TrackCreateScreen);
  
